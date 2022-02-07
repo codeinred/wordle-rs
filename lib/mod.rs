@@ -24,7 +24,9 @@ impl Solution {
         }
         let result = self.word.iter().zip(guess).map(|(word_ch, guess_ch)| {
             if word_ch == guess_ch {
-                (*word_ch, Right)
+                (*guess_ch, Right)
+            } else if self.word.contains(guess_ch) {
+                (*guess_ch, Elsewhere)
             } else {
                 (*guess_ch, Wrong)
             }
