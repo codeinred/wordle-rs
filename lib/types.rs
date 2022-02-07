@@ -6,10 +6,10 @@ pub enum GuessState {
 }
 
 #[derive(PartialEq, Eq, Clone)]
-pub struct Word(Vec<char>);
+pub struct Word(pub Vec<char>);
 
 #[derive(PartialEq, Eq, Clone)]
-pub struct Check(Vec<(char, GuessState)>);
+pub struct Check(pub Vec<(char, GuessState)>);
 
 impl From<&str> for Word {
     fn from(string: &str) -> Word {
