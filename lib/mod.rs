@@ -1,4 +1,7 @@
 use std::vec::Vec;
+use std::fs::File;
+use std::io::{BufReader, Result, BufRead};
+use std::path::Path;
 
 pub enum GuessState {
     Wrong,     // Indicates that the letter isn't in the word
@@ -29,6 +32,11 @@ impl Solution {
 
         Some(result.collect())
     }
+}
+
+pub fn read_shit<P: AsRef<Path>>(path: P) -> Result<Vec<String>> {
+    let file = File::open(path)?;
+    BufReader::new(file).lines().collect()
 }
 
 pub fn hello_world() {
