@@ -14,3 +14,4 @@ name = "wordle"
 path = "src/main.rs"
 
 [dependencies]
+termcolor = "1.1"
