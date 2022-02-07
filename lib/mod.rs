@@ -3,38 +3,9 @@ use std::fs::File;
 use std::io::{BufReader, Result, BufRead};
 use std::path::Path;
 
-pub enum GuessState {
-    Wrong,     // Indicates that the letter isn't in the word
-    Elsewhere, // Indicates that the letter is found elsewhere in the word
-    Right,     // Indicates that the letter is in the right place in the word
-}
-pub type Word = Vec<char>;
-pub type Check = Vec<(char, GuessState)>;
+mod types;
 
-pub struct Solution {
-    word: Word,
-}
-
-impl Solution {
-    pub fn check(&self, guess: &Word) -> Option<Check> {
-        use GuessState::*;
-
-        if self.word.len() != guess.len() {
-            return None;
-        }
-        let result = self.word.iter().zip(guess).map(|(word_ch, guess_ch)| {
-            if word_ch == guess_ch {
-                (*guess_ch, Right)
-            } else if self.word.contains(guess_ch) {
-                (*guess_ch, Elsewhere)
-            } else {
-                (*guess_ch, Wrong)
-            }
-        });
-
-        Some(result.collect())
-    }
-}
+pub use types::*;
 
 pub fn read_shit<P: AsRef<Path>>(path: P) -> Result<Vec<String>> {
     let file = File::open(path)?;
