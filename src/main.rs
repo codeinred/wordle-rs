@@ -33,6 +33,8 @@ fn main() -> Result<(), io::Error> {
     let lock = stdin.lock();
     let mut lines = lock.lines();
 
+    let mut checks = Vec::new();
+
     loop {
         stdout.set_color(&ColorSpec::new())?;
         write!(stdout, "Enter your guess: ")?;
@@ -51,7 +53,12 @@ fn main() -> Result<(), io::Error> {
             }
         };
 
-        print_check(stdout, &check)?;
+        checks.push(check.clone());
+
+        for check in &checks {
+            print_check(stdout, check)?;
+            writeln!(stdout)?;
+        }
         writeln!(stdout)?;
 
         if check.all_good() {
